@@ -10,4 +10,4 @@ if (!defined('ABSPATH')) exit;
 
 // Include CPT file
 require_once plugin_dir_path(__FILE__) . 'includes/cpt-tutors.php';
-
+require_once plugin_dir_path(__FILE__) . 'includes/tutor-meta-boxes.php';
