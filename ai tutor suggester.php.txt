@@ -1,0 +1,13 @@
+<?php
+/**
+ * Plugin Name: AI Tutor Suggester
+ * Description: Suggests tutors based on subject, budget, and location.
+ * Version: 1.0
+ * Author: Prathamesh Bhagat
+ */
+
+if (!defined('ABSPATH')) exit;
+
+// Include CPT file
+require_once plugin_dir_path(__FILE__) . 'includes/cpt-tutors.php';
+
