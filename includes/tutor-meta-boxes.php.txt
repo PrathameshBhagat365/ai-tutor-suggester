@@ -1,0 +1,53 @@
+<?php
+// Add Meta Boxes
+function ats_add_tutor_meta_boxes() {
+    add_meta_box('ats_tutor_details', 'Tutor Details', 'ats_render_tutor_meta_box', 'ats_tutor', 'normal', 'high');
+}
+add_action('add_meta_boxes', 'ats_add_tutor_meta_boxes');
+
+// Render Fields
+function ats_render_tutor_meta_box($post) {
+    // Get existing values
+    $subject    = get_post_meta($post->ID, 'ats_subject', true);
+    $city       = get_post_meta($post->ID, 'ats_city', true);
+    $rate       = get_post_meta($post->ID, 'ats_rate', true);
+    $grade      = get_post_meta($post->ID, 'ats_grade', true);
+    $experience = get_post_meta($post->ID, 'ats_experience', true);
+
+    ?>
+    <p>
+        <label>Subject:</label><br>
+        <input type="text" name="ats_subject" value="<?php echo esc_attr($subject); ?>" style="width:100%;" />
+    </p>
+    <p>
+        <label>City:</label><br>
+        <input type="text" name="ats_city" value="<?php echo esc_attr($city); ?>" style="width:100%;" />
+    </p>
+    <p>
+        <label>Rate (₹ per hour):</label><br>
+        <input type="number" name="ats_rate" value="<?php echo esc_attr($rate); ?>" />
+    </p>
+    <p>
+        <label>Grade/Class:</label><br>
+        <input type="text" name="ats_grade" value="<?php echo esc_attr($grade); ?>" />
+    </p>
+    <p>
+        <label>Experience (in years):</label><br>
+        <input type="number" name="ats_experience" value="<?php echo esc_attr($experience); ?>" />
+    </p>
+    <?php
+}
+
+// Save Fields
+function ats_save_tutor_meta($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+
+    if (isset($_POST['ats_subject'])) {
+        update_post_meta($post_id, 'ats_subject', sanitize_text_field($_POST['ats_subject']));
+        update_post_meta($post_id, 'ats_city', sanitize_text_field($_POST['ats_city']));
+        update_post_meta($post_id, 'ats_rate', intval($_POST['ats_rate']));
+        update_post_meta($post_id, 'ats_grade', sanitize_text_field($_POST['ats_grade']));
+        update_post_meta($post_id, 'ats_experience', intval($_POST['ats_experience']));
+    }
+}
+add_action('save_post', 'ats_save_tutor_meta');
